@@ -86,7 +86,7 @@ fn define_from_image(s: &mut Session, p: &Value) -> Result<Value> {
     let rgba = img.to_rgba_f32();
     let v: Vec<f32> = rgba.as_chunks::<4>().0.iter().map(|px| source.amount(px)).collect();
     let (brush, tw, th) = sampled_tip_brush(cmd, &v, w as usize, h as usize, true)?;
-    upsert(s, BrushPreset { name: name.clone(), brush: brush.clone(), builtin: false, group: String::new(), folder: Vec::new() });
+    upsert(s, BrushPreset { name: name.clone(), brush: brush.clone(), builtin: false, group: String::new(), folder: Vec::new(), captures: Default::default() });
     s.tools.brush = brush;
     s.tools.current_preset = Some(name.clone());
     Ok(json!({ "name": name, "width": tw, "height": th, "source": source.name() }))
